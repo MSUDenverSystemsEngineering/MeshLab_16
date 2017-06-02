@@ -1,0 +1,6 @@
+Keys,Names
+HKLM:SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\meshlab.exe,
+HKLM:SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\meshlabserver.exe,
+HKLM:SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\MeshLab_64b,
+HKLM:SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\App Paths\meshlab.exe,
+HKLM:SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\App Paths\meshlabserver.exe,
