@@ -116,7 +116,7 @@ Try {
 					        $removeReg = Get-RegistryKey -Key "$key" -Value "$name"
 
 					        If ($removeReg) {
-					            Echo "Removing $name within $key"
+					            Write-Output "Removing $name within $key"
 					            Remove-RegistryKey -Key "$key" -Name "$name"
 					        }
 
@@ -127,7 +127,7 @@ Try {
 					        $removeReg = Test-Path "$key"
 
 					        If ($removeReg) {
-					            Echo "Removing key: $key"
+					            Write-Output "Removing key: $key"
 					            Remove-RegistryKey -Key "$key"
 					        }
 
