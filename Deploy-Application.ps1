@@ -50,7 +50,7 @@ Param (
 
 Try {
 	## Set the script execution policy for this process
-	Try { Set-ExecutionPolicy -ExecutionPolicy 'ByPass' -Scope 'Process' -Force -ErrorAction 'Stop' } Catch {}
+	Try { Set-ExecutionPolicy -ExecutionPolicy 'ByPass' -Scope 'Process' -Force -ErrorAction 'Stop' } Catch {Write-Error -Message "Unable to set the PowerShell Execution Policy to Bypass for this process."}
 
 	##*===============================================
 	##* VARIABLE DECLARATION
@@ -225,8 +225,8 @@ Try {
 				Remove-File -Path "$envPublic\Desktop\MeshLab.lnk"
 			  }
 
-				If (Test-Path "$envProgramData\Microsoft\Windows\Start Menu\Programs\MeshLab.lnk") {
-				Remove-File -Path "$envProgramData\Microsoft\Windows\Start Menu\Programs\MeshLab.lnk"
+				If (Test-Path "$envProgramData\Microsoft\Windows\Start Menu\Programs\MeshLab") {
+				Remove-File -Path "$envProgramData\Microsoft\Windows\Start Menu\Programs\MeshLab" -Recurse
 				}
 
 		#Remove Registry entries
