@@ -170,7 +170,8 @@ Try {
 		## <Perform Installation tasks here>
 
 		#Run installer
-				Execute-Process -Path "$dirFiles\MeshLab2016-12.exe" -Parameters '/S' -WindowStyle 'Hidden'
+				$exitCode = Execute-Process -Path "$dirFiles\MeshLab2016-12.exe" -Parameters '/S' -WindowStyle 'Hidden' -PassThru
+				If (($exitCode.ExitCode -ne "0") -and ($mainExitCode -ne "3010")) { $mainExitCode = $exitCode.ExitCode }
 
 		#Create Shortcuts
 				Copy-File -Path "$dirSupportFiles\MeshLab.lnk" -Destination "$envPublic\Desktop"
@@ -225,8 +226,8 @@ Try {
 				Remove-File -Path "$envPublic\Desktop\MeshLab.lnk"
 			  }
 
-				If (Test-Path "$envProgramData\Microsoft\Windows\Start Menu\Programs\MeshLab") {
-				Remove-File -Path "$envProgramData\Microsoft\Windows\Start Menu\Programs\MeshLab" -Recurse
+				If (Test-Path "$envProgramData\Microsoft\Windows\Start Menu\Programs\MeshLab.lnk") {
+				Remove-File -Path "$envProgramData\Microsoft\Windows\Start Menu\Programs\MeshLab.lnk"
 				}
 
 		#Remove Registry entries
