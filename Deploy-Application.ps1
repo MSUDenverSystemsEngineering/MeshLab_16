@@ -180,7 +180,7 @@ Try {
 		## <Perform Installation tasks here>
 
 		#Run installer
-		$exitCode = Execute-Process -Path "$dirFiles\MeshLab2016-12.exe" -Parameters '/S' -WindowStyle 'Hidden' -PassThru
+		$exitCode = Execute-Process -Path "$dirFiles\MeshLab2020.03-windows.exe" -Parameters '/S' -WindowStyle 'Hidden' -PassThru
 		If (($exitCode.ExitCode -ne "0") -and ($mainExitCode -ne "3010")) { $mainExitCode = $exitCode.ExitCode }
 
 		#Create Shortcuts
