@@ -108,42 +108,6 @@ Try {
 		If (Test-Path -LiteralPath 'variable:HostInvocation') { $script:ExitCode = $mainExitCode; Exit } Else { Exit $mainExitCode }
 	}
 
-	#Declare Functions
-
-	function RemoveRegByCSV {
-
-		$csvFile = $args[0]
-		$csvRegData = Import-CSV $csvFile
-
-		ForEach($entry in $csvRegData) {
-
-			$key = $entry.Keys
-			$name = $entry.Names
-
-			If ($name) {
-
-				$removeReg = Get-RegistryKey -Key "$key" -Value "$name"
-
-				If ($removeReg) {
-					Write-Output "Removing $name within $key"
-					Remove-RegistryKey -Key "$key" -Name "$name"
-				}
-
-			}
-
-			else {
-
-				$removeReg = Test-Path "$key"
-
-				If ($removeReg) {
-					Write-Output "Removing key: $key"
-					Remove-RegistryKey -Key "$key"
-				}
-
-			}
-
-		}
-	}
 
 	#endregion
 	##* Do not modify section above
@@ -184,8 +148,8 @@ Try {
 		If (($exitCode.ExitCode -ne "0") -and ($mainExitCode -ne "3010")) { $mainExitCode = $exitCode.ExitCode }
 
 		#Create Shortcuts
-		Copy-File -Path "$dirSupportFiles\MeshLab.lnk" -Destination "$envPublic\Desktop"
-		Copy-File -Path "$dirSupportFiles\MeshLab.lnk" -Destination "$envProgramData\Microsoft\Windows\Start Menu\Programs"
+		##Copy-File -Path "$dirSupportFiles\MeshLab.lnk" -Destination "$envPublic\Desktop"
+		##Copy-File -Path "$dirSupportFiles\MeshLab.lnk" -Destination "$envProgramData\Microsoft\Windows\Start Menu\Programs"
 
 
 
@@ -216,23 +180,9 @@ Try {
 
 		## <Perform Pre-Uninstallation tasks here>
 
-		#Remove Program Files
-		If (Test-Path "$envProgramFiles\VCG") {
-			Remove-File -Path "$envProgramFiles\VCG" -Recurse
-		}
-
-		#Remove Shortcuts
-			If (Test-Path "$envPublic\Desktop\MeshLab.lnk") {
-			Remove-File -Path "$envPublic\Desktop\MeshLab.lnk"
-		  	}
-
-			If (Test-Path "$envProgramData\Microsoft\Windows\Start Menu\Programs\MeshLab.lnk") {
-			Remove-File -Path "$envProgramData\Microsoft\Windows\Start Menu\Programs\MeshLab.lnk"
-			}
-
-		#Remove Registry entries
-			RemoveRegByCSV "$dirSupportFiles\RegRemove.csv"
-
+		$exitCode = Execute-Process -Path "$envProgramFiles\VCG\MeshLab\uninst.exe" -Parameters "/S" -WindowStyle "Hidden" -WaitForMsiExec -PassThru
+		Wait-Process -name Un_A
+		If (($exitCode.ExitCode -ne "0") -and ($mainExitCode -ne "3010")) { $mainExitCode = $exitCode.ExitCode }
 
 		##*===============================================
 		##* UNINSTALLATION
