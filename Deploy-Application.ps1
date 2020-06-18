@@ -180,9 +180,6 @@ Try {
 
 		## <Perform Pre-Uninstallation tasks here>
 
-		$exitCode = Execute-Process -Path "$envProgramFiles\VCG\MeshLab\uninst.exe" -Parameters "/S" -WindowStyle "Hidden" -WaitForMsiExec -PassThru
-		Wait-Process -name Un_A
-		If (($exitCode.ExitCode -ne "0") -and ($mainExitCode -ne "3010")) { $mainExitCode = $exitCode.ExitCode }
 
 		##*===============================================
 		##* UNINSTALLATION
@@ -196,7 +193,9 @@ Try {
 		}
 
 		# <Perform Uninstallation tasks here>
-
+		$exitCode = Execute-Process -Path "$envProgramFiles\VCG\MeshLab\uninst.exe" -Parameters "/S" -WindowStyle "Hidden" -WaitForMsiExec -PassThru
+		Wait-Process -name Un_A
+		If (($exitCode.ExitCode -ne "0") -and ($mainExitCode -ne "3010")) { $mainExitCode = $exitCode.ExitCode }
 
 		##*===============================================
 		##* POST-UNINSTALLATION
