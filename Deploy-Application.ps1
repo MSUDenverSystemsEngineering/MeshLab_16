@@ -161,7 +161,7 @@ Try {
 		Show-InstallationWelcome -CloseApps 'iexplore' -CheckDiskSpace -PersistPrompt
 
 		## Show Progress Message (with the default message)
-		Show-InstallationProgress -StatusMessage "Installing $installTitle. Please wait..."
+		Show-InstallationProgress
 
 		## <Perform Pre-Installation tasks here>
 
@@ -212,7 +212,7 @@ Try {
 		Show-InstallationWelcome -CloseApps 'iexplore' -CloseAppsCountdown 60
 
 		## Show Progress Message (with the default message)
-		Show-InstallationProgress -StatusMessage "Uninstalling $installTitle. Please wait..."
+		Show-InstallationProgress
 
 		## <Perform Pre-Uninstallation tasks here>
 
